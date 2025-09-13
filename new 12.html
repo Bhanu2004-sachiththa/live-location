@@ -1,0 +1,110 @@
+<html>
+<head>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <style>
+    #map { height: 100vh; }
+  </style>
+</head>
+<body>
+<div id="map" style="height:100vh;"></div>
+
+<script>
+let map = L.map('map').setView([7.8731, 80.7718], 8); // Sri Lanka center
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+}).addTo(map);
+
+// Sample places
+let places = [
+  { name: "Colombo", coords: [6.9271, 79.8612] },
+  { name: "Kandy", coords: [7.2906, 80.6337] },
+  { name: "Battaramulla", coords: [6.9043, 79.9241] }
+];
+
+// Haversine formula
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+let routingControl;
+let userMarker, accuracyCircle;
+
+if (navigator.geolocation) {
+  navigator.geolocation.watchPosition(
+    (pos) => {
+      let lat = pos.coords.latitude;
+      let lng = pos.coords.longitude;
+
+      if (!userMarker) {
+        userMarker = L.marker([lat, lng],).addTo(map).bindPopup("📍 You are here");
+        accuracyCircle = L.circle([lat, lng], { radius: 1500, color: "lime", fillOpacity: 0.3 }).addTo(map);
+      } else {
+        userMarker.setLatLng([lat, lng]);
+        accuracyCircle.setLatLng([lat, lng]);
+      }
+
+      // Find nearest place
+      let nearest = null;
+      let minDist = Infinity;
+      places.forEach(place => {
+        let d = getDistance(lat, lng, place.coords[0], place.coords[1]);
+        if (d < minDist) {
+          minDist = d;
+          nearest = place;
+        }
+      });
+
+      console.log("Nearest:", nearest.name, " (" + minDist.toFixed(2) + " km)");
+
+      // Remove old route
+      if (routingControl) {
+        map.removeControl(routingControl);
+      }
+
+      // Draw route
+      routingControl = L.Routing.control({
+        waypoints: [
+          L.latLng(lat, lng),
+          L.latLng(nearest.coords[0], nearest.coords[1])
+        ],
+        routeWhileDragging: false
+      }).addTo(map);
+
+      // Show ETA + distance
+      routingControl.on('routesfound', function(e) {
+        let route = e.routes[0];
+        let summary = route.summary;
+
+        let distance = (summary.totalDistance / 1000).toFixed(2); // km
+        let time = Math.round(summary.totalTime / 60); // minutes
+
+        L.popup()
+          .setLatLng(nearest.coords)
+          .setContent(`🚗 Nearest: <b>${nearest.name}</b><br>📏 Distance: ${distance} km<br>⏱ ETA: ${time} min`)
+          .openOn(map);
+      });
+
+    }, 
+    (err) => console.error(err), 
+    { enableHighAccuracy: true }
+  );
+} else {
+  alert("Geolocation is not supported by this browser.");
+}
+ </script>
+</body>
+</html>
+
