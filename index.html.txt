@@ -1,0 +1,542 @@
+<html>
+<head>
+    <title>Parking Space Management System</title>
+    <style>
+        body {
+            background-color:black;
+            color:white;             /* light text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        /* Container for date, h2, and time */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            position: relative;
+        }
+        h2 {
+            margin: 0 auto;
+            text-align: center;
+			color: red;    
+        }
+        #date {
+            position: absolute;
+            left: 20px;  /* date on left */
+            font-size: 18px;
+            font-weight: bold;
+            color: yellow;
+        }
+        #time {
+            position: absolute;
+            right: 20px; /* time on right */
+            font-size: 18px;
+            font-weight: bold;
+            color: yellow;
+        }
+		#alarm{
+			width:100px;
+			
+		
+		}
+		.image{
+			width:10
+			0px;
+			
+		
+		}
+		
+		
+		
+		.border {
+			background-color: #1e1e1e;
+            padding:  11px ;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px #fcd100;
+		}
+		
+		
+		.border1 {
+			background-color: #1e1e1e;
+            padding: 11px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px #fcd100;
+		}
+		
+		
+        .positions {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            padding: 10px;
+        }
+        
+		
+		footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+			
+        }
+		.dot {
+			height: 40px;
+			width: 40px;
+			border-radius: 40%;
+			display: inline-block;
+			margin-left: 6px 6px;
+		}
+		.T1{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		.T2{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T3{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		
+		
+		}
+		.T4{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T5{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T6{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T7{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T8{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T9{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T10{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T11{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+		.T12{
+			color:white;
+			background-color:#1e1e1e;
+			font-size:18px;
+			outline: none;
+			 
+		
+		}
+		
+		
+			.dot.red { background-color: red; }
+			.dot.green { background-color: lime; }
+    </style>
+</head>
+<body>
+	
+	<div>
+		<div>
+		<image align="left" id="alarm"  src="7.webp "> </image>
+		</div>
+		<h1 align="middle">Parking Space Management System</h1>
+		
+	</div>
+    <audio id="siren" src="mixkit-city-alert-siren-loop-1008.mp3"></audio>
+    
+    <div class="header">
+        <div id="date"></div>
+        <h2>Real Time Dashboard</h2>
+		
+        <div id="time"></div>
+    </div>
+	
+	<p align="middle"> <strong>1 <sup>st</sup> Floor Bays </p>
+
+    
+		<div class="positions">
+		<div class="border"><p><button id="myBtn1" onclick="disableButton1()" class="T1"><b>Stall 1</b></button><br> <br><span id="slot1dot" class="dot red" ></span><br><br> <span id="slot01dot" class="dot green"></span></p></div>
+		<div class="border"><p><button id="myBtn2" onclick="disableButton2()" class="T2"><b>Stall 2</b></button><br> <br><span id="slot2dot"  class="dot red"></span><br><br> <span id="slot02dot" class="dot green"></span></p></div>
+		<div class="border"><p><button id="myBtn3" onclick="disableButton3()" class="T3"><b>Stall 3</b></button><br> <br><span id="slot3dot" class="dot red"></span><br><br> <span id="slot03dot"class="dot green"></span></p></div>
+		<div class="border"><p><button id="myBtn4" onclick="disableButton4()" class="T4"><b>Stall 4</b></button><br> <br><span id="slot4dot"  class="dot red"></span><br><br> <span id="slot04dot" class="dot green"></span></p></div>
+		<div class="border"><p><button id="myBtn5" onclick="disableButton5()" class="T5"><b>Stall 5</b></button><br> <br><span id="slot5dot"  class="dot red"></span><br><br> <span id="slot05dot" class="dot green"></span></p></div>
+		<div class="border"><p><button id="myBtn6" onclick="disableButton6()" class="T6"><b>Stall 6</b></button><br> <br><span id="slot6dot"  class="dot red"></span><br><br> <span id="slot06dot" class="dot green"></span></p></div>
+		</div>
+	
+	
+	<br>
+	<p align="middle">2<sup> nd</sup> Floor Bays </p>
+	
+	<div class="positions">
+		<div class="border1"><p><button id="myBtn7" onclick="disableButton7()" class="T7"><b>Stall 7</b></button><br> <br><span id="slot7dot"  class="dot red" ></span><br><br> <span id="slot07dot" class="dot green"></span></p></div>
+		<div class="border1"><p><button id="myBtn8" onclick="disableButton8()" class="T8"><b>Stall 8</b></button><br> <br><span id="slot8dot"  class="dot red"></span><br><br> <span id="slot08dot"  class="dot green"></span></p></div>
+		<div class="border1"><p><button id="myBtn9" onclick="disableButton9()" class="T9"><b>Stall 9</b></button><br> <br><span id="slot9dot"  class="dot red"></span><br><br> <span id="slot09dot" class="dot green"></span></p></div>
+		<div class="border1"><p><button id="myBtn10" onclick="disableButton10()" class="T10"><b>Stall 10</b></button><br> <br><span id="slot10dot"  class="dot red"></span><br><br> <span id="slot010dot" class="dot green"></span></p></div>
+		<div class="border1"><p><button id="myBtn11" onclick="disableButton11()" class="T11"><b>Stall 11</b></button><br> <br><span id="slot11dot"  class="dot red"></span><br><br> <span id="slot011dot" class="dot green"></span></p></div>
+		<div class="border1"><p><button id="myBtn12" onclick="disableButton12()" class="T12"><b>Stall 12</b></button><br> <br><span id="slot12dot"  class="dot red"></span><br><br> <span id="slot012dot" class="dot green"></span></p></div>
+		</div>
+	
+
+
+<script type="module">
+
+	
+	
+
+	function disableButton1(){
+		 let btn = document.getElementById("myBtn1");
+			  btn.disabled = true;   
+			
+
+			  setTimeout(() => {
+				btn.disabled = false;  
+			
+			  }, 10000);		         
+			  
+			  
+	}
+	
+	function disableButton2(){
+		 let btn = document.getElementById("myBtn2");
+			  btn.disabled = true;   
+			
+
+			  setTimeout(() => {
+				btn.disabled = false;  
+			
+			  }, 10000);		
+	}
+	
+	function disableButton3(){
+		 let btn = document.getElementById("myBtn3");
+			  btn.disabled = true;   
+			
+
+			  setTimeout(() => {
+				btn.disabled = false;  
+			
+			  }, 10000);		
+	}
+	
+	function disableButton4(){
+		 let btn = document.getElementById("myBtn4");
+			  btn.disabled = true;   
+			
+
+			  setTimeout(() => {
+				btn.disabled = false;  
+			
+			  }, 10000);		
+	}
+	
+	function disableButton5(){
+		 let btn = document.getElementById("myBtn5");
+			  btn.disabled = true;   
+			
+
+			  setTimeout(() => {
+				btn.disabled = false;  
+			
+			  }, 10000);		
+	}
+	
+	function disableButton6(){
+		 let btn = document.getElementById("myBtn6");
+			  btn.disabled = true;   
+			
+
+			  setTimeout(() => {
+				btn.disabled = false;  
+			
+			  }, 10000);		
+	}
+	
+	
+
+
+	 function updateDashboard() {
+	  console.log("Dashboard refreshed"); // replace with your logic
+	  // Example: reload data from Firebase or update UI
+	}
+  // Import Firebase SDKs
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBQ7NJy9g2-qz412GoBVBaMcbVfK_Kwb4g",
+    authDomain: "esp32-test-project-39b49.firebaseapp.com",
+    databaseURL: "https://esp32-test-project-39b49-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "esp32-test-project-39b49",
+    storageBucket: "esp32-test-project-39b49.firebasestorage.app",
+    messagingSenderId: "656267356807",
+    appId: "1:656267356807:web:8655e22f8d3da43520e622",
+    measurementId: "G-BVNEW6Y2F1"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getDatabase(app);   // ✅ Fix: create db
+
+	
+	
+	
+	
+	// 🔹 Function to watch parking slots
+  function watchParkingSlots() {
+  const slot1Ref = ref(db, "control/Slot 1");
+  const slot2Ref = ref(db, "control/Slot 2");
+  const slot3Ref = ref(db, "control/Slot 3");
+  const slot4Ref = ref(db, "control/Slot 4");
+  const slot5Ref = ref(db, "control/Slot 5");
+  const slot6Ref = ref(db, "control/Slot 6");
+  
+	
+	
+	
+  // Slot 1
+  onValue(slot1Ref, (snapshot) => {
+    let status = snapshot.val();
+    let dot1 = document.getElementById("slot1dot");
+    let dot2 = document.getElementById("slot01dot");
+    if (status === 1) {
+      dot2.style.backgroundColor = "red";   // occupied
+      dot1.style.backgroundColor = "black";
+	   disableButton1();
+    }
+	else {
+      dot1.style.backgroundColor = "lime"; // free
+      dot2.style.backgroundColor = "black";
+    }
+	
+
+  });
+
+  // Slot 2
+  onValue(slot2Ref, (snapshot) => {
+    let status = snapshot.val();
+    let dot3 = document.getElementById("slot2dot");
+    let dot4 = document.getElementById("slot02dot");
+    if (status === 1) {
+      dot4.style.backgroundColor = "red";
+      dot3.style.backgroundColor = "black";
+	   disableButton2();
+	  
+	  
+    } else {
+      dot3.style.backgroundColor = "lime";
+      dot4.style.backgroundColor = "black";
+    }
+  });
+  
+
+
+  // Slot 3
+  onValue(slot3Ref, (snapshot) => {
+    let status = snapshot.val();
+    let dot5 = document.getElementById("slot3dot");
+    let dot6 = document.getElementById("slot03dot");
+    if (status === 1) {
+      dot6.style.backgroundColor = "red";
+      dot5.style.backgroundColor = "black";
+	   disableButton3();
+	   
+    } else {
+      dot5.style.backgroundColor = "lime";
+      dot6.style.backgroundColor = "black";
+    }
+  });
+
+  // Slot 4
+  onValue(slot4Ref, (snapshot) => {
+    let status = snapshot.val();
+    let dot7 = document.getElementById("slot4dot");
+    let dot8 = document.getElementById("slot04dot");
+    if (status === 1) {
+      dot8.style.backgroundColor = "red";
+      dot7.style.backgroundColor = "black";
+	   disableButton4();
+	  
+    } else {
+      dot7.style.backgroundColor = "lime";
+      dot8.style.backgroundColor = "black";
+    }
+  });
+
+  // Slot 5
+  onValue(slot5Ref, (snapshot) => {
+    let status = snapshot.val();
+    let dot9 = document.getElementById("slot5dot");
+    let dot10 = document.getElementById("slot05dot");
+    if (status === 1) {
+      dot10.style.backgroundColor = "red";
+      dot9.style.backgroundColor = "black";
+	   disableButton5();
+	  
+    } else {
+      dot9.style.backgroundColor = "lime";
+      dot10.style.backgroundColor = "black";
+    }
+  });
+
+  // Slot 6
+  onValue(slot6Ref, (snapshot) => {
+    let status = snapshot.val();
+    let dot11 = document.getElementById("slot6dot");
+    let dot12 = document.getElementById("slot06dot");
+    if (status === 1) {
+      dot12.style.backgroundColor = "red";
+      dot11.style.backgroundColor = "black";
+	   disableButton6();
+	   
+    } else {
+      dot11.style.backgroundColor = "lime";
+      dot12.style.backgroundColor = "black";
+    }
+  });
+}
+
+  // 🔹 Clock
+  function updateClock() {
+    let now = new Date();
+    let hours = now.getHours().toString().padStart(2, '0');
+    let minutes = now.getMinutes().toString().padStart(2, '0');
+    let seconds = now.getSeconds().toString().padStart(2, '0');
+    let timeString = hours + ":" + minutes + ":" + seconds;
+
+    let day = now.getDate().toString().padStart(2, '0');
+    let monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    let month = monthNames[now.getMonth()];
+    let year = now.getFullYear();
+    let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    let dayName = days[now.getDay()];
+    let dateString = day + " " + month + " " + year + " (" + dayName + ")";
+
+    document.getElementById('time').innerText = timeString;
+    document.getElementById('date').innerText = dateString;
+  }
+
+  // 🔹 Blink Alarm
+  let blink = true;
+  setInterval(() => {
+    let img = document.getElementById("alarm");
+    if (blink) {
+      img.style.visibility = "hidden";
+    } else {
+      img.style.visibility = "visible";
+    }
+    blink = !blink;
+  }, 1000);
+	
+	 // runs every 1 second
+  // Run everything
+  window.addEventListener("load", watchParkingSlots);
+  setInterval(updateClock, 1000);
+  setInterval(updateDashboard, 1000);
+  updateClock();
+</script>
+
+<footer>
+       Powered by : Hyper Pacific Industries © 2025
+    </footer>
+
+
+
+    
+	
+
+	
+	
+</body>
+</html>
+
